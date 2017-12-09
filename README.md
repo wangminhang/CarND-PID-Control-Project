@@ -96,3 +96,29 @@ still be compilable with cmake and make./
 ## How to write a README
 A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 
+## PID Components
+
+The PID algorithm is composed of three components: P, I, and D. 
+
+The "P" stands for proportional, which is used to steer the vehicle back to the center of the road in some proportion of the cross track error (CTE). 
+
+The "I" stands for integral, and keeps a running sum of the CTE.
+This is particularly useful for cars exhibiting some sort of steering bias, such as pulling to the right. 
+In my implementation I found it helpful for going around turns, as the effects of the other components (P & D) were not compensating enough to stay in the middle of the lane during a sharp curve. 
+Setting the "I" coefficient to a very small value  was enough to improve performance.
+
+The "D" stands for derivative and it is used to prevent overcorrection from the "P" component. 
+When the car is steering towards the center of the lane to adjust for the CTE, the derivative will become negative, so the "D" coefficient will reduce the absolute value of the steering angle produced by the "P" component, 
+result in a smooth adjustment toward the center of the lane.
+
+## Parameter Tuning
+
+I adjust the PID coefficients through base on multiple trial. 
+Starting by only set Kp to 0.2, result in a car that steered toward the center of the lane with drastically overshoot. 
+Then reduce the Kp to 0.1 to reduce overcorrection for a certain extent. 
+Then I introduce Kd and set it to 1, result in vastly performance improvement. 
+Just using these two values was not enough to get the car around the track reasonably well, but the vehicle would go up on the curb during sharp turns. 
+After a lot more turning with the Kp and Kd coefficients, I introduce the "I" component. 
+I found that setting Ki to a small value of 0.002 could solve the sharp turnning problem. 
+
+Testing by testing, I set the coefficient of [Kp,Ki,Kd] = [0.06,0.002,1.1], and get a better result.

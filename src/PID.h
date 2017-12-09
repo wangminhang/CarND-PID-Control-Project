@@ -6,16 +6,16 @@ public:
   /*
   * Errors
   */
-  double p_error;
-  double i_error;
-  double d_error;
+  double m_p_error;
+  double m_i_error;
+  double m_d_error;
 
   /*
   * Coefficients
   */ 
-  double Kp;
-  double Ki;
-  double Kd;
+  double m_Kp;
+  double m_Ki;
+  double m_Kd;
 
   /*
   * Constructor
